@@ -31,7 +31,7 @@ stockflows(2) = (stocks(1) * variables(1)) + (stocks(5)*variables(1)) - (variabl
 
 % d(SN-38G)/dt = (SN-38*UGT Rate) - (SN-38G*Excretion Rate)
 % Peak SN-38G should be .284 mg
-stockflows(3) = (variables(3)*stocks(2)*UGT_rate*4.7) - (stocks(3)*variables(4));
+stockflows(3) = (variables(3)*stocks(2)*UGT_rate*2) - (stocks(3)*variables(4));
 
 % d(Excreted Material)/dt = (All stocks*Excretion Rate)
 stockflows(6) = (stocks(1)+stocks(2)+stocks(3)+stocks(4)+stocks(5))*variables(4);
