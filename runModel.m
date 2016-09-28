@@ -1,6 +1,9 @@
+% Returns a simlen x 7 matrix containing time values, 
 function res = runModel(stocks, variables, doseCPT, DoseRate, simlen)
 clf;
 hold on;
+stock_vals = zeros(simlen,7);
+dilution = 6.125e-3; % Conversion from irinotecan dosage to amount of CPT-11
 %stocks = [.1 0 0 0 0 0]; % Chemical compounds concentraion in order of CPT_11, SN_38, SN_38G, APC, NPC, and Excreted Material
 %CPT_11, SN_38, SN_38G, APC, NPC
 %CPT has to be non zero
@@ -13,17 +16,15 @@ hold on;
 %simlen = 300; %hours
 
 for i = 1:simlen
-    if isInteger((i-1)/DoseRate)
-        stocks = Update(doseCPT, variables, stocks)
+    if (mod(i-1,DoseRate) == 0)
+        stocks = Update(doseCPT*dilution, variables, stocks);
     else
-        stocks = Update(0, variables, stocks)
+        stocks = Update(0, variables, stocks);
     end
-    plot(i, stocks(1), 'ko', 'MarkerSize', 6)
-    plot(i, stocks(2), 'ro', 'MarkerSize', 6)
-    plot(i, stocks(3), 'bo', 'MarkerSize', 6)
-    plot(i, stocks(4), 'go', 'MarkerSize', 6)
-    plot(i, stocks(5), 'mo', 'MarkerSize', 6)
-    %plot(i, stocks(6), 'co', 'MarkerSize', 6)
+    stock_vals(i,1) = i;
+    for j=2:7
+        stock_vals(i,j) = stocks(j-1);
+    end
 end
-res = 0;
+res = stock_vals;
 end
