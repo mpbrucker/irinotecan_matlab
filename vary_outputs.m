@@ -12,11 +12,11 @@ clf;
 hold on
 outputs = runModel(input_stocks,input_variables,input_dose,dose_rate,simlen);
 Times = transpose(outputs(:,1));
-CPT_11 = transpose(outputs(:,2));
-SN_38 = transpose(outputs(:,3));
-SN_38G = transpose(outputs(:,4));
-APC = transpose(outputs(:,5));
-NPC = transpose(outputs(:,6));
+CPT_11 = transpose(outputs(:,2)) ./ 586.678;
+SN_38 = transpose(outputs(:,3)) ./ 392.404;
+SN_38G = transpose(outputs(:,4)) ./ 568.529;
+APC = transpose(outputs(:,5)) ./ 311.646;
+NPC = transpose(outputs(:,6)) ./ 518.56;
 excr = transpose(outputs(:,7));
 
 total_SN = sum(SN_38);
@@ -30,7 +30,7 @@ plot(Times,SN_38,'r');
 plot(Times,SN_38G,'b');
 plot(Times,APC,'g');
 plot(Times,NPC,'c');
-plot(Times,excr,'k');
+%plot(Times,excr,'k');
 xlabel('Time (hrs)');
 ylabel('Amount in body (g)');
 title('Concentration of CPT-11 components in the body over time');
